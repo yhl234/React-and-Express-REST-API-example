@@ -1,10 +1,13 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { api } from '../config/globals';
 import Order from '../components/Order';
+import OrderCreate from '../components/OrderCreate';
 
 export default class backEnd extends Component {
   state = {
     orders: null,
+    editing: false,
   };
 
   componentDidMount() {
@@ -16,9 +19,14 @@ export default class backEnd extends Component {
       });
   }
 
+  createHandler = () => {
+    this.setState(prevState => ({
+      editing: !prevState.editing,
+    }));
+  };
+
   render() {
     let displayOrders = null;
-    // eslint-disable-next-line react/destructuring-assignment
     if (this.state.orders) {
       const { orders } = this.state;
       displayOrders = orders.map(order => {
@@ -26,7 +34,18 @@ export default class backEnd extends Component {
         return <Order key={_id} order={order} />;
       });
     }
-
-    return <div>{displayOrders}</div>;
+    let createFrom = null;
+    if (this.state.editing) {
+      createFrom = <OrderCreate />;
+    }
+    return (
+      <div>
+        <button type="button" onClick={this.createHandler}>
+          Create
+        </button>
+        {displayOrders}
+        {createFrom}
+      </div>
+    );
   }
 }
