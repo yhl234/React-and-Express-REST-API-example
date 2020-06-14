@@ -161,62 +161,61 @@ export default class OrderForm extends Component {
               justify="center"
               alignItems="center"
             >
-              <div>
-                <TextValidator
-                  label="Name"
-                  margin="normal"
-                  value={name}
-                  onChange={this.handleChange}
-                  type="text"
-                  name="name"
-                  id="name"
-                  validators={['required']}
-                  errorMessages={['Name is required']}
-                />
-              </div>
-              <div>
-                <TextValidator
-                  label="Phone Number"
-                  value={phone}
-                  onChange={this.handleChange}
-                  type="text"
-                  name="phone"
-                  id="phone"
-                  validators={['required']}
-                  errorMessages={['Phone is required', 'Phone is not valid']}
-                />
-              </div>
-              <div>
-                <TextValidator
-                  label="Email"
-                  value={email}
-                  onChange={this.handleChange}
-                  type="email"
-                  placeholder="Your Email"
-                  name="email"
-                  id="email"
-                  validators={['required', 'isEmail']}
-                  errorMessages={['Email is required', 'Email is not valid']}
-                />
-              </div>
-              <div>
-                <TextValidator
-                  label="Number of People"
-                  value={numOfPeople}
-                  onChange={this.handleChange}
-                  type="number"
-                  min="1"
-                  placeholder="Your Name"
-                  name="numOfPeople"
-                  id="numOfPeople"
-                  validators={['required', 'minNumber:0', 'maxNumber:255']}
-                  errorMessages={[
-                    'This field is required',
-                    'Number should greater then 0',
-                    'Number should smaller then 255',
-                  ]}
-                />
-              </div>
+              <TextValidator
+                label="Name"
+                margin="normal"
+                fullWidth
+                value={name}
+                onChange={this.handleChange}
+                type="text"
+                name="name"
+                id="name"
+                validators={['required']}
+                errorMessages={['Name is required']}
+              />
+              <TextValidator
+                label="Phone Number"
+                margin="normal"
+                fullWidth
+                value={phone}
+                onChange={this.handleChange}
+                type="text"
+                name="phone"
+                id="phone"
+                validators={['required']}
+                errorMessages={['Phone is required', 'Phone is not valid']}
+              />
+
+              <TextValidator
+                label="Email"
+                margin="normal"
+                fullWidth
+                value={email}
+                onChange={this.handleChange}
+                type="email"
+                name="email"
+                id="email"
+                validators={['required', 'isEmail']}
+                errorMessages={['Email is required', 'Email is not valid']}
+              />
+
+              <TextValidator
+                label="Number of People"
+                margin="normal"
+                fullWidth
+                value={numOfPeople}
+                onChange={this.handleChange}
+                type="number"
+                min="1"
+                name="numOfPeople"
+                id="numOfPeople"
+                validators={['required', 'minNumber:0', 'maxNumber:255']}
+                errorMessages={[
+                  'This field is required',
+                  'Number should greater then 0',
+                  'Number should smaller then 255',
+                ]}
+              />
               <div>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid
@@ -229,7 +228,7 @@ export default class OrderForm extends Component {
                       margin="normal"
                       name="time"
                       id="date-picker-dialog"
-                      label="Date picker dialog"
+                      label="Select Your Date"
                       format="MM/dd/yyyy"
                       value={time}
                       onChange={this.handleTimeChange}
@@ -241,7 +240,7 @@ export default class OrderForm extends Component {
                       margin="normal"
                       name="time"
                       id="time-picker"
-                      label="Time picker"
+                      label="Select your Time"
                       value={time}
                       onChange={this.handleTimeChange}
                       KeyboardButtonProps={{

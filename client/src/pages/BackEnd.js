@@ -1,10 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
-import { Backdrop, Modal, Grid, Button } from '@material-ui/core';
+import { Dialog, Grid, Button } from '@material-ui/core';
 import { api } from '../config/globals';
 import Order from '../components/Order';
-import OrderCreate from '../components/OrderCreate';
-import OrderEdit from '../components/OrderEdit';
 import OrderForm from '../UI/OrderForm';
 
 export default class backEnd extends Component {
@@ -94,14 +92,14 @@ export default class backEnd extends Component {
             {displayOrders}
           </Grid>
         </section>
-        <Modal
+        <Dialog
           open={open}
           onClose={this.handleClose}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
         >
           {inputFrom}
-        </Modal>
+        </Dialog>
       </div>
     );
   }

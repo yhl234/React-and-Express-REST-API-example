@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { api } from '../config/globals';
 import Time from '../UI/Time';
 
-const Order = ({ order, className, edit, loadPosts }) => {
+const OrdersTable = ({ order, className, edit, loadPosts }) => {
   const { _id, name, email, phone, time, numOfPeople } = order;
 
   const deleteHandler = () => {
@@ -60,14 +60,14 @@ const Order = ({ order, className, edit, loadPosts }) => {
     </Card>
   );
 };
-Order.propTypes = {
+OrdersTable.propTypes = {
   order: PropTypes.object,
   className: PropTypes.string,
   edit: PropTypes.func,
   loadPosts: PropTypes.func,
 };
 
-export default styled(Order)`
+export default styled(OrdersTable)`
   text-align: left;
   border: 1px solid gray;
   max-width: 300px;
