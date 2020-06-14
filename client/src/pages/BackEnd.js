@@ -2,10 +2,12 @@
 import React, { Component } from 'react';
 import { Dialog, Grid, Button } from '@material-ui/core';
 import { api } from '../config/globals';
+import OrdersTable from '../components/OrdersTable';
 import Order from '../components/Order';
+
 import OrderForm from '../UI/OrderForm';
 
-export default class backEnd extends Component {
+export default class Backend extends Component {
   state = {
     orders: null,
     edit: false,
@@ -50,6 +52,11 @@ export default class backEnd extends Component {
   };
 
   render() {
+    let displayTable = null;
+    if (this.state.orders) {
+      const { orders } = this.state;
+      displayTable = <OrdersTable data={orders} />;
+    }
     let displayOrders = null;
     if (this.state.orders) {
       const { orders } = this.state;
@@ -87,6 +94,7 @@ export default class backEnd extends Component {
         <Button color="primary" size="small" onClick={this.createHandler}>
           Create
         </Button>
+        <section>{displayTable}</section>
         <section>
           <Grid container direction="row" justify="center" alignItems="center">
             {displayOrders}

@@ -1,79 +1,107 @@
-import React from 'react';
+/* eslint-disable react/display-name */
+import React, { Component, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import { api } from '../config/globals';
+import MaterialTable from 'material-table';
+
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
 import Time from '../UI/Time';
+import { api } from '../config/globals';
 
-const OrdersTable = ({ order, className, edit, loadPosts }) => {
-  const { _id, name, email, phone, time, numOfPeople } = order;
+const tableIcons = {
+  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+  DetailPanel: forwardRef((props, ref) => (
+    <ChevronRight {...props} ref={ref} />
+  )),
+  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  PreviousPage: forwardRef((props, ref) => (
+    <ChevronLeft {...props} ref={ref} />
+  )),
+  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
+  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+};
 
-  const deleteHandler = () => {
-    fetch(`${api}/orders/delete/${_id}`, {
-      method: 'DELETE',
-    }).then(response => {
-      response.json();
-      loadPosts();
-    });
+class OrdersTable extends Component {
+  // deleteHandler = () => {
+  //   fetch(`${api}/orders/delete/${_id}`, {
+  //     method: 'DELETE',
+  //   }).then(response => {
+  //     response.json();
+  //     loadPosts();
+  //   });
+  // };
+  state = {
+    columns: [
+      { title: 'Name', field: 'name' },
+      { title: 'Email', field: 'email' },
+      { title: 'Phone', field: 'phone' },
+      { title: 'Time', field: 'time' },
+      { title: 'Number of people', field: 'numOfPeople' },
+    ],
+    data: [],
   };
-  let numOfPString = '';
-  if (numOfPeople === 2) {
-    numOfPString = ` and another person`;
-  }
-  if (numOfPeople > 2) {
-    numOfPString = ` and ${numOfPeople - 1} more people`;
+
+  componentDidMount() {
+    const { data } = this.props;
+    this.setState({ data });
   }
 
-  return (
-    <Card className={className} variant="outlined">
-      <CardContent>
-        <h3>{name} </h3>
-        <span>{numOfPString}</span>
-        <div>Email: {email}</div>
-        <div>Phone: {phone}</div>
-        <div>
-          Appointment Time:
-          <Time time={time} />
-        </div>
-        <CardActions>
-          <Button
-            variant="outlined"
-            color="primary"
-            size="small"
-            onClick={() => edit(_id)}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="small"
-            onClick={deleteHandler}
-          >
-            Delete
-          </Button>
-        </CardActions>
-      </CardContent>
-    </Card>
-  );
-};
+  render() {
+    const { columns, data } = this.state;
+    return (
+      <>
+        <MaterialTable
+          title="Report"
+          icons={tableIcons}
+          columns={columns}
+          data={data}
+          actions={[
+            {
+              icon: () => <Edit />,
+              tooltip: 'Edit Record',
+              onClick: (event, rowData) => alert(`You saved ${rowData._id}`),
+            },
+            {
+              icon: () => <DeleteOutline />,
+              tooltip: 'Delete Record',
+              // onClick: (event, rowData) =>
+              // confirm(`You want to delete ${rowData.name}`),
+            },
+          ]}
+          options={{
+            exportButton: true,
+          }}
+        />
+      </>
+    );
+  }
+}
 OrdersTable.propTypes = {
-  order: PropTypes.object,
-  className: PropTypes.string,
-  edit: PropTypes.func,
-  loadPosts: PropTypes.func,
+  data: PropTypes.object,
 };
 
-export default styled(OrdersTable)`
-  text-align: left;
-  border: 1px solid gray;
-  max-width: 300px;
-  padding: 1.5rem;
-  margin: 0.5rem;
-  h3 {
-    display: inline-block;
-  }
-`;
+export default OrdersTable;
