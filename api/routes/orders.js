@@ -15,8 +15,19 @@ router.get('/', (req, res, next) => {
   });
 });
 
+// GET: /orders/12345
+router.get('/:_id', (req, res, next) => {
+  Order.findById({ _id: req.params._id }, (err, order) => {
+    if (err) {
+      console.log(err);
+      return res.json(err).status(400);
+    }
+    return res.json(order).status(200);
+  });
+});
+
 // POST: /orders
-router.post('/', (req, res, next) => {
+router.post('/add', (req, res, next) => {
   // use order model to save new order
   const { name, phone, time, numOfPeople, email } = req.body;
   const newOrder = new Order({
@@ -41,7 +52,7 @@ router.post('/', (req, res, next) => {
 });
 
 // DELETE: /orders/12345
-router.delete('/:_id', (req, res, next) => {
+router.delete('/delete/:_id', (req, res, next) => {
   Order.remove({ _id: req.params._id }, (err, order) => {
     if (err) {
       console.log(err);
@@ -51,8 +62,8 @@ router.delete('/:_id', (req, res, next) => {
   });
 });
 
-// UPDATE: /orders/12345
-router.put('/:id', (req, res, next) => {
+// UPDATE: /orders/update/12345
+router.put('/update/:_id', (req, res, next) => {
   const { name, phone, time, numOfPeople, email } = req.body;
   Order.findByIdAndUpdate(
     { _id: req.params._id },

@@ -14,7 +14,7 @@ const backdrop = ({ className, onClick, open }) => {
       className={[{ className }, 'backdrop', open ? 'open' : ''].join(' ')}
       onClick={onClick}
       onKeyPress={handleKeyPress}
-    />,
+    ></div>,
     document.getElementById('backdrop-root')
   );
 };
