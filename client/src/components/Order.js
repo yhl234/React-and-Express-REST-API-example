@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import { api } from '../config/globals';
 
-const Order = ({ order, className, edit }) => {
+const Order = ({ order, className, edit, loadPosts }) => {
   const { _id, name, email, phone, time, numOfPeople } = order;
 
   const deleteHandler = () => {
@@ -15,6 +15,7 @@ const Order = ({ order, className, edit }) => {
       method: 'DELETE',
     }).then(response => {
       response.json();
+      loadPosts();
     });
   };
 
@@ -53,6 +54,7 @@ Order.propTypes = {
   order: PropTypes.object,
   className: PropTypes.string,
   edit: PropTypes.func,
+  loadPosts: PropTypes.func,
 };
 
 export default styled(Order)`

@@ -1,11 +1,12 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import { Backdrop, Modal } from '@material-ui/core';
+import { Backdrop, Modal, Grid, Button } from '@material-ui/core';
+
 import { api } from '../config/globals';
 import Order from '../components/Order';
 import OrderCreate from '../components/OrderCreate';
 import OrderEdit from '../components/OrderEdit';
+import OrderForm from '../UI/OrderForm';
 
 export default class backEnd extends Component {
   state = {
@@ -17,12 +18,16 @@ export default class backEnd extends Component {
   };
 
   componentDidMount() {
+    this.loadPosts();
+  }
+
+  loadPosts = () => {
     fetch(`${api}/orders`)
       .then(res => res.json())
       .then(resData => {
         this.setState({ orders: resData });
       });
-  }
+  };
 
   createHandler = () => {
     this.setState(prevState => ({
@@ -53,23 +58,43 @@ export default class backEnd extends Component {
       const { orders } = this.state;
       displayOrders = orders.map(order => {
         const { _id } = order;
-        return <Order key={_id} order={order} edit={this.editHandler} />;
+        return (
+          <Order
+            key={_id}
+            order={order}
+            edit={this.editHandler}
+            loadPosts={this.loadPosts}
+          />
+        );
       });
     }
     let inputFrom = null;
     if (this.state.creating) {
-      inputFrom = <OrderCreate />;
+      inputFrom = (
+        <OrderForm onFinish={this.handleClose} loadPosts={this.loadPosts} />
+      );
     }
     if (this.state.edit) {
-      inputFrom = <OrderEdit postId={this.state.editing} />;
+      inputFrom = (
+        <OrderForm
+          mode="edit"
+          postId={this.state.editing}
+          onFinish={this.handleClose}
+          loadPosts={this.loadPosts}
+        />
+      );
     }
     const { open } = this.state;
     return (
       <div>
-        <button type="button" onClick={this.createHandler}>
+        <Button color="primary" size="small" onClick={this.createHandler}>
           Create
-        </button>
-        <section>{displayOrders}</section>
+        </Button>
+        <section>
+          <Grid container direction="row" justify="center" alignItems="center">
+            {displayOrders}
+          </Grid>
+        </section>
         <Modal
           open={open}
           onClose={this.handleClose}
