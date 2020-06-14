@@ -201,7 +201,7 @@ export default class OrderForm extends Component {
               </div>
               <div>
                 <TextValidator
-                  label="Number Of People"
+                  label="Number of People"
                   value={numOfPeople}
                   onChange={this.handleChange}
                   type="number"
