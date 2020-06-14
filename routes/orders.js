@@ -4,7 +4,7 @@ const Order = require('../models/order');
 
 const router = express.Router();
 
-// GET: /orders
+// GET: /api/orders
 // To load all posts
 router.get('/', (req, res, next) => {
   Order.find((err, orders) => {
@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
   });
 });
 
-// GET: /orders/12345
+// GET: /api/orders/12345
 // To populate edit form
 router.get('/:_id', (req, res, next) => {
   Order.findById({ _id: req.params._id }, (err, order) => {
@@ -28,7 +28,7 @@ router.get('/:_id', (req, res, next) => {
   });
 });
 
-// GET: /orders/search/234423523
+// GET: /api/orders/search/234423523
 // search by phone number
 router.get('/search/:phone', (req, res, next) => {
   Order.find({ phone: req.params.phone }, (err, order) => {
@@ -40,7 +40,7 @@ router.get('/search/:phone', (req, res, next) => {
   });
 });
 
-// POST: /orders
+// POST: /api/orders
 router.post('/add', (req, res, next) => {
   // use order model to save new order
   const { name, phone, time, numOfPeople, email } = req.body;
@@ -65,7 +65,7 @@ router.post('/add', (req, res, next) => {
     });
 });
 
-// DELETE: /orders/12345
+// DELETE: /api/orders/12345
 router.delete('/delete/:_id', (req, res, next) => {
   Order.remove({ _id: req.params._id }, (err, order) => {
     if (err) {
@@ -76,7 +76,7 @@ router.delete('/delete/:_id', (req, res, next) => {
   });
 });
 
-// UPDATE: /orders/update/12345
+// UPDATE: /api/orders/update/12345
 router.put('/update/:_id', (req, res, next) => {
   const { name, phone, time, numOfPeople, email } = req.body;
   Order.findByIdAndUpdate(

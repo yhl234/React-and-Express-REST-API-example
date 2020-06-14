@@ -5,8 +5,8 @@ const logger = require('morgan');
 
 const cors = require('cors');
 const mongoose = require('mongoose');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+// const indexRouter = require('./routes/index');
+// const usersRouter = require('./routes/users');
 const ordersRouter = require('./routes/orders');
 
 const app = express();
@@ -18,9 +18,9 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(cors());
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/orders', ordersRouter);
+// app.use('/api', indexRouter);
+// app.use('/users', usersRouter);
+app.use('/api/orders', ordersRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/client/build/index.html`));
