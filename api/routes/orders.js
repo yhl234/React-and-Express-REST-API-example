@@ -5,6 +5,7 @@ const Order = require('../models/order');
 const router = express.Router();
 
 // GET: /orders
+// To load all posts
 router.get('/', (req, res, next) => {
   Order.find((err, orders) => {
     if (err) {
@@ -16,8 +17,21 @@ router.get('/', (req, res, next) => {
 });
 
 // GET: /orders/12345
+// To populate edit form
 router.get('/:_id', (req, res, next) => {
   Order.findById({ _id: req.params._id }, (err, order) => {
+    if (err) {
+      console.log(err);
+      return res.json(err).status(400);
+    }
+    return res.json(order).status(200);
+  });
+});
+
+// GET: /orders/search/234423523
+// search by phone number
+router.get('/search/:phone', (req, res, next) => {
+  Order.find({ phone: req.params.phone }, (err, order) => {
     if (err) {
       console.log(err);
       return res.json(err).status(400);
