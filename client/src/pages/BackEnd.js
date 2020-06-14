@@ -35,18 +35,30 @@ export default class Backend extends Component {
     }));
   };
 
-  editHandler = postId => {
+  editHandler = _id => {
     this.setState(prevState => ({
       edit: !prevState.edit,
       open: !prevState.open,
-      editing: postId,
+      editing: _id,
     }));
   };
 
+  deleteHandler = _id => {
+    console.log(_id);
+    fetch(`${api}/orders/delete/${_id}`, {
+      method: 'DELETE',
+    }).then(response => {
+      response.json();
+      this.loadPosts();
+    });
+  };
+
+  // open Dialog to show input from
   handleOpen = () => {
     this.setState({ open: true });
   };
 
+  // close the Dialog and reset edit and creation
   handleClose = () => {
     this.setState({ open: false, edit: false, creating: false, editing: null });
   };
@@ -55,22 +67,13 @@ export default class Backend extends Component {
     let displayTable = null;
     if (this.state.orders) {
       const { orders } = this.state;
-      displayTable = <OrdersTable data={orders} />;
-    }
-    let displayOrders = null;
-    if (this.state.orders) {
-      const { orders } = this.state;
-      displayOrders = orders.map(order => {
-        const { _id } = order;
-        return (
-          <Order
-            key={_id}
-            order={order}
-            edit={this.editHandler}
-            loadPosts={this.loadPosts}
-          />
-        );
-      });
+      displayTable = (
+        <OrdersTable
+          data={orders}
+          onDelete={this.deleteHandler}
+          onEdit={this.editHandler}
+        />
+      );
     }
     let inputFrom = null;
     if (this.state.creating) {
@@ -95,17 +98,7 @@ export default class Backend extends Component {
           Create
         </Button>
         <section>{displayTable}</section>
-        <section>
-          <Grid container direction="row" justify="center" alignItems="center">
-            {displayOrders}
-          </Grid>
-        </section>
-        <Dialog
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
+        <Dialog open={open} onClose={this.handleClose}>
           {inputFrom}
         </Dialog>
       </div>

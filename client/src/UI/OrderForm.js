@@ -90,7 +90,7 @@ export default class OrderForm extends Component {
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          throw new Error('Creating or editing a post failed!');
+          throw new Error('Create failed!');
         }
         res.json();
       })
@@ -101,7 +101,7 @@ export default class OrderForm extends Component {
             onFinish();
           }, 500);
         });
-        loadPosts();
+        this.sendEmail();
       })
       .catch(err => {
         console.log(err);
@@ -127,7 +127,7 @@ export default class OrderForm extends Component {
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          throw new Error('Creating or editing a post failed!');
+          throw new Error('Edit failed!');
         }
         res.json();
       })
@@ -139,6 +139,39 @@ export default class OrderForm extends Component {
           }, 500);
         });
         loadPosts();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  sendEmail = () => {
+    const { name, phone, email, time, numOfPeople } = this.state;
+    const data = {
+      service_id: process.env.REACT_APP_SERVICE_ID,
+      template_id: process.env.REACT_APP_TEMPLATE_ID,
+      user_id: process.env.REACT_APP_USER_ID,
+      template_params: {
+        name,
+        phone,
+        email,
+        time,
+        numOfPeople,
+      },
+    };
+    fetch(`https://api.emailjs.com/api/v1.0/email/send`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => {
+        if (res.status !== 200 && res.status !== 201) {
+          throw new Error('Send email failed!');
+        }
+        console.log(res);
+        res.json();
       })
       .catch(err => {
         console.log(err);
@@ -216,40 +249,33 @@ export default class OrderForm extends Component {
                   'Number should smaller then 255',
                 ]}
               />
-              <div>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <Grid
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                  >
-                    <KeyboardDatePicker
-                      margin="normal"
-                      name="time"
-                      id="date-picker-dialog"
-                      label="Select Your Date"
-                      format="MM/dd/yyyy"
-                      value={time}
-                      onChange={this.handleTimeChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                    />
-                    <KeyboardTimePicker
-                      margin="normal"
-                      name="time"
-                      id="time-picker"
-                      label="Select your Time"
-                      value={time}
-                      onChange={this.handleTimeChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change time',
-                      }}
-                    />
-                  </Grid>
-                </MuiPickersUtilsProvider>
-              </div>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  margin="normal"
+                  fullWidth
+                  name="time"
+                  id="date-picker-dialog"
+                  label="Select Your Date"
+                  format="MM/dd/yyyy"
+                  value={time}
+                  onChange={this.handleTimeChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+                <KeyboardTimePicker
+                  margin="normal"
+                  fullWidth
+                  name="time"
+                  id="time-picker"
+                  label="Select your Time"
+                  value={time}
+                  onChange={this.handleTimeChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change time',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
 
               <CardActions>
                 <Button

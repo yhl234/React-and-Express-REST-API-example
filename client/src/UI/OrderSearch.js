@@ -61,29 +61,36 @@ export default class OrderSearch extends Component {
     return (
       <>
         <ValidatorForm onSubmit={this.handleSubmit}>
-          <TextValidator
-            label="Search your order by your phone number"
-            margin="normal"
-            fullWidth
-            value={phone}
-            onChange={this.handleChange}
-            type="text"
-            name="phone"
-            id="phone"
-            validators={['required']}
-            errorMessages={['Phone is required', 'Phone is not valid']}
-            helperText={notFoundText || null}
-            error={notFound || null}
-          />
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            disabled={submitted}
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="baseline"
           >
-            {(submitted && 'Your form is submitted!') ||
-              (!submitted && 'Submit')}
-          </Button>
+            <TextValidator
+              label="Phone Number"
+              margin="normal"
+              value={phone}
+              onChange={this.handleChange}
+              type="text"
+              name="phone"
+              id="phone"
+              validators={['required']}
+              errorMessages={['Phone is required', 'Phone is not valid']}
+              helperText={notFoundText || null}
+              error={notFound || null}
+            />
+            <Button
+              size="small"
+              color="primary"
+              variant="contained"
+              type="submit"
+              disabled={submitted}
+            >
+              {(submitted && 'Your form is submitted!') ||
+                (!submitted && 'Search')}
+            </Button>
+          </Grid>
         </ValidatorForm>
         <section>
           <Grid container direction="row" justify="center" alignItems="center">

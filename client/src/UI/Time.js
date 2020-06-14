@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Time = ({ time }) => {
   const timestamp = Date.parse(time);
   const localTime = new Date(timestamp).toLocaleString();
-  return <>{localTime}</>;
+  return <span>{localTime}</span>;
 };
 Time.propTypes = {
   time: PropTypes.string,

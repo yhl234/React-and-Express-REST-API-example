@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/display-name */
 import React, { Component, forwardRef } from 'react';
 import PropTypes from 'prop-types';
@@ -18,8 +19,6 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import Time from '../UI/Time';
-import { api } from '../config/globals';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -46,14 +45,6 @@ const tableIcons = {
 };
 
 class OrdersTable extends Component {
-  // deleteHandler = () => {
-  //   fetch(`${api}/orders/delete/${_id}`, {
-  //     method: 'DELETE',
-  //   }).then(response => {
-  //     response.json();
-  //     loadPosts();
-  //   });
-  // };
   state = {
     columns: [
       { title: 'Name', field: 'name' },
@@ -67,11 +58,19 @@ class OrdersTable extends Component {
 
   componentDidMount() {
     const { data } = this.props;
+    // formate time
+    data.map(d => {
+      const timestamp = Date.parse(d.time);
+      const localTime = new Date(timestamp).toLocaleString();
+      d.time = localTime;
+    });
     this.setState({ data });
   }
 
   render() {
     const { columns, data } = this.state;
+    const { onDelete, onEdit } = this.props;
+
     return (
       <>
         <MaterialTable
@@ -83,17 +82,20 @@ class OrdersTable extends Component {
             {
               icon: () => <Edit />,
               tooltip: 'Edit Record',
-              onClick: (event, rowData) => alert(`You saved ${rowData._id}`),
+              onClick: (event, rowData) => onEdit(rowData._id),
             },
             {
               icon: () => <DeleteOutline />,
               tooltip: 'Delete Record',
-              // onClick: (event, rowData) =>
-              // confirm(`You want to delete ${rowData.name}`),
+              onClick: (event, rowData) => {
+                confirm(`You want to delete ${rowData.name}`);
+                onDelete(rowData._id);
+              },
             },
           ]}
           options={{
             exportButton: true,
+            actionsColumnIndex: -1,
           }}
         />
       </>
@@ -101,7 +103,9 @@ class OrdersTable extends Component {
   }
 }
 OrdersTable.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
 };
 
 export default OrdersTable;
