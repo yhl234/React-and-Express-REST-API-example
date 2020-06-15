@@ -213,9 +213,9 @@ Delete an order
 
 ---
 
-### **Delete an order**
+### **Update an order**
 
-Delete an order
+Update an order
 
 - **URL**
 
