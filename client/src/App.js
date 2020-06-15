@@ -5,21 +5,13 @@ import { Container } from '@material-ui/core';
 import Backend from './pages/Backend';
 import Home from './pages/Home';
 import Thanks from './pages/Thanks';
+import Nav from './components/Nav';
 
 function App() {
   return (
     <BrowserRouter>
+      <Nav></Nav>
       <div className="App">
-        <ul>
-          <li>
-            <NavLink exact to="/">
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/backend">Administer</NavLink>
-          </li>
-        </ul>
         <Container>
           <Switch>
             <Route path="/backend" component={Backend} />
