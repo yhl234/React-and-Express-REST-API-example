@@ -1,8 +1,8 @@
-# React REST API example
+# React and Express REST API example
 
 ### API Documentation
 
-#### **Show Orders**
+### **Show Orders**
 
 Returns json data about all orders.
 
@@ -40,7 +40,7 @@ Returns json data about all orders.
 
 ---
 
-#### **Show An Order by ID**
+### **Show An Order by ID**
 
 Returns json data about an order associate with an ID.
 
@@ -80,7 +80,7 @@ Returns json data about an order associate with an ID.
 
 ---
 
-#### **Search Orders**
+### **Search Orders**
 
 Returns json data about orders associated with a phone number.
 
@@ -118,7 +118,7 @@ Returns json data about orders associated with a phone number.
 
 ---
 
-#### **Add New Orders**
+### **Add New Orders**
 
 Create a new order
 
@@ -173,7 +173,7 @@ Create a new order
 
 ---
 
-#### **Delete an order**
+### **Delete an order**
 
 Delete an order
 
@@ -213,7 +213,7 @@ Delete an order
 
 ---
 
-#### **Delete an order**
+### **Delete an order**
 
 Delete an order
 
