@@ -57,6 +57,14 @@ class OrdersTable extends Component {
   };
 
   componentDidMount() {
+    this.loadData();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.loadData();
+  }
+
+  loadData = () => {
     const { data } = this.props;
     // formate time
     data.map(d => {
@@ -65,7 +73,7 @@ class OrdersTable extends Component {
       d.time = localTime;
     });
     this.setState({ data });
-  }
+  };
 
   render() {
     const { columns, data } = this.state;

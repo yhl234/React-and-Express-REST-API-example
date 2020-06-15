@@ -17,7 +17,7 @@ function App() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/backend">Backend</NavLink>
+            <NavLink to="/backend">Administer</NavLink>
           </li>
         </ul>
         <Container>

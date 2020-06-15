@@ -7,13 +7,7 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import {
-  Card,
-  Grid,
-  CardActions,
-  CardContent,
-  Button,
-} from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { api } from '../config/globals';
 
@@ -24,6 +18,7 @@ export default class OrderForm extends Component {
     mode: PropTypes.string,
     onFinish: PropTypes.func,
     loadPosts: PropTypes.func,
+    fullWidth: PropTypes.bool,
   };
 
   state = {
@@ -102,6 +97,7 @@ export default class OrderForm extends Component {
           }, 500);
         });
         this.sendEmail();
+        loadPosts();
       })
       .catch(err => {
         console.log(err);
@@ -179,119 +175,108 @@ export default class OrderForm extends Component {
   };
 
   render() {
-    const { className, mode } = this.props;
+    const { className, mode, fullWidth } = this.props;
     const { name, phone, email, time, numOfPeople, submitted } = this.state;
 
     return (
-      <Card className={className} variant="outlined">
-        <CardContent>
-          <ValidatorForm
-            onSubmit={mode === 'edit' ? this.handleUpdate : this.handleSubmit}
+      <ValidatorForm
+        onSubmit={mode === 'edit' ? this.handleUpdate : this.handleSubmit}
+      >
+        <Grid container direction="row" justify="center" alignItems="center">
+          <TextValidator
+            label="Name"
+            margin="normal"
+            fullWidth={fullWidth || null}
+            value={name}
+            onChange={this.handleChange}
+            type="text"
+            name="name"
+            id="name"
+            validators={['required']}
+            errorMessages={['Name is required']}
+          />
+          <TextValidator
+            label="Phone Number"
+            margin="normal"
+            fullWidth={fullWidth || null}
+            value={phone}
+            onChange={this.handleChange}
+            type="text"
+            name="phone"
+            id="phone"
+            validators={['required']}
+            errorMessages={['Phone is required', 'Phone is not valid']}
+          />
+
+          <TextValidator
+            label="Email"
+            margin="normal"
+            fullWidth={fullWidth || null}
+            value={email}
+            onChange={this.handleChange}
+            type="email"
+            name="email"
+            id="email"
+            validators={['required', 'isEmail']}
+            errorMessages={['Email is required', 'Email is not valid']}
+          />
+
+          <TextValidator
+            label="Guests"
+            margin="normal"
+            fullWidth={fullWidth || null}
+            value={numOfPeople}
+            onChange={this.handleChange}
+            type="number"
+            min="1"
+            name="numOfPeople"
+            id="numOfPeople"
+            validators={['required', 'minNumber:0', 'maxNumber:255']}
+            errorMessages={[
+              'This field is required',
+              'Number should greater then 0',
+              'Number should smaller then 255',
+            ]}
+          />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              margin="normal"
+              fullWidth={fullWidth || null}
+              name="time"
+              id="date-picker-dialog"
+              label="Select Your Date"
+              format="MM/dd/yyyy"
+              value={time}
+              onChange={this.handleTimeChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+            <KeyboardTimePicker
+              margin="normal"
+              fullWidth={fullWidth || null}
+              name="time"
+              id="time-picker"
+              label="Select your Time"
+              value={time}
+              onChange={this.handleTimeChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change time',
+              }}
+            />
+          </MuiPickersUtilsProvider>
+
+          <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            disabled={submitted}
           >
-            <Grid
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
-              <TextValidator
-                label="Name"
-                margin="normal"
-                fullWidth
-                value={name}
-                onChange={this.handleChange}
-                type="text"
-                name="name"
-                id="name"
-                validators={['required']}
-                errorMessages={['Name is required']}
-              />
-              <TextValidator
-                label="Phone Number"
-                margin="normal"
-                fullWidth
-                value={phone}
-                onChange={this.handleChange}
-                type="text"
-                name="phone"
-                id="phone"
-                validators={['required']}
-                errorMessages={['Phone is required', 'Phone is not valid']}
-              />
-
-              <TextValidator
-                label="Email"
-                margin="normal"
-                fullWidth
-                value={email}
-                onChange={this.handleChange}
-                type="email"
-                name="email"
-                id="email"
-                validators={['required', 'isEmail']}
-                errorMessages={['Email is required', 'Email is not valid']}
-              />
-
-              <TextValidator
-                label="Number of People"
-                margin="normal"
-                fullWidth
-                value={numOfPeople}
-                onChange={this.handleChange}
-                type="number"
-                min="1"
-                name="numOfPeople"
-                id="numOfPeople"
-                validators={['required', 'minNumber:0', 'maxNumber:255']}
-                errorMessages={[
-                  'This field is required',
-                  'Number should greater then 0',
-                  'Number should smaller then 255',
-                ]}
-              />
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  margin="normal"
-                  fullWidth
-                  name="time"
-                  id="date-picker-dialog"
-                  label="Select Your Date"
-                  format="MM/dd/yyyy"
-                  value={time}
-                  onChange={this.handleTimeChange}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                />
-                <KeyboardTimePicker
-                  margin="normal"
-                  fullWidth
-                  name="time"
-                  id="time-picker"
-                  label="Select your Time"
-                  value={time}
-                  onChange={this.handleTimeChange}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change time',
-                  }}
-                />
-              </MuiPickersUtilsProvider>
-
-              <CardActions>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                  disabled={submitted}
-                >
-                  {(submitted && 'Your form is submitted!') ||
-                    (!submitted && 'Submit')}
-                </Button>
-              </CardActions>
-            </Grid>
-          </ValidatorForm>
-        </CardContent>
-      </Card>
+            {(submitted && 'Your form is submitted!') ||
+              (!submitted && 'Submit')}
+          </Button>
+        </Grid>
+      </ValidatorForm>
     );
   }
 }
