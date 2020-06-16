@@ -3,7 +3,6 @@
 import React, { Component, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import MaterialTable from 'material-table';
-import { Grid } from '@material-ui/core';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';

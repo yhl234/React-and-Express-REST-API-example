@@ -41,7 +41,7 @@ class Backend extends Component {
       });
   };
 
-  // Open Dialog when + button press
+  // Open Dialog when + button pressed
   createHandler = () => {
     this.setState(prevState => ({
       creating: !prevState.creating,
@@ -49,7 +49,7 @@ class Backend extends Component {
     }));
   };
 
-  // Open Dialog when edit button press
+  // Open Dialog when edit button pressed
   editHandler = _id => {
     this.setState(prevState => ({
       edit: !prevState.edit,
@@ -58,7 +58,7 @@ class Backend extends Component {
     }));
   };
 
-  // Receives _id from table and delete it
+  // Receives _id from table and delete the order
   deleteHandler = _id => {
     console.log(_id);
     fetch(`${api}/orders/delete/${_id}`, {
@@ -78,6 +78,7 @@ class Backend extends Component {
   };
 
   // close the Dialog and reset edit and creation
+  // in <OrderForm onFinish={this.handleClose} />
   handleClose = () => {
     this.setState({ open: false, edit: false, creating: false, editing: null });
   };

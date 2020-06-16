@@ -29,6 +29,7 @@ export default class OrderForm extends Component {
     submitted: false,
   };
 
+  // check if usee is editing, if yes, fill all fields
   componentDidMount() {
     const { mode } = this.props;
     if (mode === 'edit') {
@@ -56,15 +57,21 @@ export default class OrderForm extends Component {
     }
   }
 
+  // grape input value and setState
   handleChange = event => {
     const { target } = event;
     this.setState({ [target.name]: target.value });
   };
 
+  // grape time select value and setState
   handleTimeChange = time => {
     this.setState({ time });
   };
 
+  // create an new order
+  // run onFinish? function from props
+  // run loadPosts? from props
+  // send email to emailJS
   handleSubmit = event => {
     event.preventDefault();
     const { onFinish, loadPosts } = this.props;
@@ -88,10 +95,10 @@ export default class OrderForm extends Component {
         }
         res.json();
       })
-      .then(data => {
+      .then(() => {
         this.sendEmail();
         if (onFinish) {
-          onFinish(phone);
+          onFinish();
         }
         this.setState({ submitted: true }, () => {
           setTimeout(() => {
@@ -115,6 +122,8 @@ export default class OrderForm extends Component {
       });
   };
 
+  // update an new order
+  // run onFinish, loadPosts function from props
   handleUpdate = event => {
     event.preventDefault();
     const { postId, onFinish, loadPosts } = this.props;
@@ -138,7 +147,7 @@ export default class OrderForm extends Component {
         }
         res.json();
       })
-      .then(data => {
+      .then(() => {
         this.setState({ submitted: true }, () => {
           setTimeout(() => {
             this.setState({ submitted: false });
@@ -152,6 +161,7 @@ export default class OrderForm extends Component {
       });
   };
 
+  // prepare required data for EmailJs and send
   sendEmail = () => {
     const { name, phone, email, time, numOfPeople } = this.state;
     const data = {
@@ -191,12 +201,12 @@ export default class OrderForm extends Component {
 
     return (
       <ValidatorForm
+        // check is updating or creating
         onSubmit={mode === 'edit' ? this.handleUpdate : this.handleSubmit}
       >
         <Grid container direction="column" justify="center" alignItems="center">
           <TextValidator
             label="Name"
-            // margin="normal"
             fullWidth={fullWidth || null}
             value={name}
             onChange={this.handleChange}
@@ -208,7 +218,6 @@ export default class OrderForm extends Component {
           />
           <TextValidator
             label="Guests"
-            // margin="normal"
             fullWidth={fullWidth || null}
             value={numOfPeople}
             onChange={this.handleChange}
@@ -225,7 +234,6 @@ export default class OrderForm extends Component {
           />
           <TextValidator
             label="Phone Number"
-            // margin="normal"
             fullWidth={fullWidth || null}
             value={phone}
             onChange={this.handleChange}
@@ -238,7 +246,6 @@ export default class OrderForm extends Component {
 
           <TextValidator
             label="Email"
-            // margin="normal"
             fullWidth={fullWidth || null}
             value={email}
             onChange={this.handleChange}
@@ -251,7 +258,6 @@ export default class OrderForm extends Component {
 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
-              // margin="normal"
               fullWidth={fullWidth || null}
               name="time"
               id="date-picker-dialog"
@@ -264,7 +270,6 @@ export default class OrderForm extends Component {
               }}
             />
             <KeyboardTimePicker
-              // margin="normal"
               fullWidth={fullWidth || null}
               name="time"
               id="time-picker"

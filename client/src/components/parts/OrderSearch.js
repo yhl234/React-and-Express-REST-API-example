@@ -15,12 +15,15 @@ export default class OrderSearch extends Component {
     submitted: false,
   };
 
+  // grape input value and setState
+  // remove error
   handleChange = event => {
     const { target } = event;
     this.setState({ [target.name]: target.value });
     this.setState({ notFound: null, notFoundText: null });
   };
 
+  // submit and search in DB
   handleSubmit = event => {
     event.preventDefault();
     const { phone } = this.state;
@@ -93,7 +96,7 @@ export default class OrderSearch extends Component {
           <Grid container direction="row" justify="center" alignItems="center">
             {displayOrders}
           </Grid>
-        </section>{' '}
+        </section>
       </>
     );
   }

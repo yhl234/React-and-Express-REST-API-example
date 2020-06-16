@@ -12,6 +12,7 @@ const HomeTabs = ({ className }) => {
   const handleChange = event => {
     setValue(event.target.value);
   };
+  // display success message and switch to search teb
   const onFinish = () => {
     alert(
       'You have successfully submitted your order and we will send you a confirmation to your Email'

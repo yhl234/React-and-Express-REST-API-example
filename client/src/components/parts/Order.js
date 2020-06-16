@@ -8,6 +8,7 @@ import Time from '../../UI/Time';
 const Order = ({ order, className }) => {
   const { name, email, phone, time, numOfPeople } = order;
 
+  // Prepare guests string
   let numOfPString = '';
   if (numOfPeople === 2) {
     numOfPString = ` and another person`;
