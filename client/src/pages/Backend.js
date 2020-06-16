@@ -11,9 +11,9 @@ import {
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { api } from '../config/globals';
-import OrdersTable from '../components/OrdersTable';
+import OrdersTable from '../components/parts/OrdersTable';
 
-import OrderForm from '../UI/OrderForm';
+import OrderForm from '../components/parts/OrderForm';
 
 class Backend extends Component {
   state = {
@@ -32,6 +32,7 @@ class Backend extends Component {
     this.loadPosts();
   }
 
+  // Get all order from DB
   loadPosts = () => {
     fetch(`${api}/orders`)
       .then(res => res.json())
@@ -40,6 +41,7 @@ class Backend extends Component {
       });
   };
 
+  // Open Dialog when + button press
   createHandler = () => {
     this.setState(prevState => ({
       creating: !prevState.creating,
@@ -47,6 +49,7 @@ class Backend extends Component {
     }));
   };
 
+  // Open Dialog when edit button press
   editHandler = _id => {
     this.setState(prevState => ({
       edit: !prevState.edit,
@@ -55,6 +58,7 @@ class Backend extends Component {
     }));
   };
 
+  // Receives _id from table and delete it
   deleteHandler = _id => {
     console.log(_id);
     fetch(`${api}/orders/delete/${_id}`, {
@@ -76,6 +80,16 @@ class Backend extends Component {
   // close the Dialog and reset edit and creation
   handleClose = () => {
     this.setState({ open: false, edit: false, creating: false, editing: null });
+  };
+
+  // formatting time before pass to table
+  formateTime = data => {
+    data.forEach(d => {
+      const timestamp = Date.parse(d.time);
+      const localTime = new Date(timestamp).toLocaleString();
+      d.time = localTime;
+    });
+    return data;
   };
 
   render() {
@@ -111,7 +125,7 @@ class Backend extends Component {
               <AddCircleIcon />
             </Button>
             <OrdersTable
-              data={orders}
+              data={this.formateTime(orders)}
               onDelete={this.deleteHandler}
               onEdit={this.editHandler}
             />

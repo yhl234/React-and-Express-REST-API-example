@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, CardContent } from '@material-ui/core/';
 import { Mail, Phone, CalendarToday } from '@material-ui/icons/';
-import Time from '../UI/Time';
+import Time from '../../UI/Time';
 
 const Order = ({ order, className }) => {
   const { name, email, phone, time, numOfPeople } = order;

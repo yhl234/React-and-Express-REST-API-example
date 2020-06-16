@@ -5,9 +5,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
-import sky from '../images/sky.jpg';
-import aurora from '../images/aurora.jpg';
-import waterfall from '../images/waterfall.jpg';
+import sky from '../../images/sky.jpg';
+import aurora from '../../images/aurora.jpg';
+import waterfall from '../../images/waterfall.jpg';
 
 const Featured = ({ className }) => (
   <section className={className}>

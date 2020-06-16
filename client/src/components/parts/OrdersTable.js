@@ -58,23 +58,16 @@ class OrdersTable extends Component {
   };
 
   componentDidMount() {
-    this.loadData();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.loadData();
-  }
-
-  loadData = () => {
     const { data } = this.props;
-    // formate time
-    data.map(d => {
-      const timestamp = Date.parse(d.time);
-      const localTime = new Date(timestamp).toLocaleString();
-      d.time = localTime;
-    });
     this.setState({ data });
-  };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.data !== prevState.data) {
+      return { data: nextProps.data };
+    }
+    return null;
+  }
 
   render() {
     const { columns, data } = this.state;

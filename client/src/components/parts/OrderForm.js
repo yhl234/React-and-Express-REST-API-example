@@ -9,7 +9,7 @@ import {
 } from '@material-ui/pickers';
 import { Grid, Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { api } from '../config/globals';
+import { api } from '../../config/globals';
 
 export default class OrderForm extends Component {
   static propTypes = {
@@ -90,6 +90,9 @@ export default class OrderForm extends Component {
       })
       .then(data => {
         this.sendEmail();
+        if (onFinish) {
+          onFinish(phone);
+        }
         this.setState({ submitted: true }, () => {
           setTimeout(() => {
             this.setState({
@@ -102,9 +105,7 @@ export default class OrderForm extends Component {
             });
           }, 2000);
         });
-        if (onFinish) {
-          onFinish();
-        }
+
         if (loadPosts) {
           loadPosts();
         }
@@ -206,6 +207,23 @@ export default class OrderForm extends Component {
             errorMessages={['Name is required']}
           />
           <TextValidator
+            label="Guests"
+            // margin="normal"
+            fullWidth={fullWidth || null}
+            value={numOfPeople}
+            onChange={this.handleChange}
+            type="number"
+            min="1"
+            name="numOfPeople"
+            id="numOfPeople"
+            validators={['required', 'minNumber:0', 'maxNumber:255']}
+            errorMessages={[
+              'This field is required',
+              'Number should greater then 0',
+              'Number should smaller then 255',
+            ]}
+          />
+          <TextValidator
             label="Phone Number"
             // margin="normal"
             fullWidth={fullWidth || null}
@@ -231,23 +249,6 @@ export default class OrderForm extends Component {
             errorMessages={['Email is required', 'Email is not valid']}
           />
 
-          <TextValidator
-            label="Guests"
-            // margin="normal"
-            fullWidth={fullWidth || null}
-            value={numOfPeople}
-            onChange={this.handleChange}
-            type="number"
-            min="1"
-            name="numOfPeople"
-            id="numOfPeople"
-            validators={['required', 'minNumber:0', 'maxNumber:255']}
-            errorMessages={[
-              'This field is required',
-              'Number should greater then 0',
-              'Number should smaller then 255',
-            ]}
-          />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               // margin="normal"

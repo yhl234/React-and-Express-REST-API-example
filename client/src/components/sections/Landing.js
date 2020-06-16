@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Background from '../images/background.jpg';
+import Background from '../../images/background.jpg';
 
 const Landing = ({ className, children }) => (
   <div className={className} style={{ backgroundImage: `url(${Background})` }}>
@@ -30,6 +30,7 @@ export default styled(Landing)`
   .text {
     display: flex;
     align-items: center;
+    flex: 1 0;
   }
   h2 {
     background: #80808059;
@@ -39,9 +40,15 @@ export default styled(Landing)`
     color: white;
   }
   .form {
+    flex: 1 0;
     max-width: 300px;
     @media only screen and (max-width: 760px) {
       max-width: 100%;
+    }
+    max-height: 500px;
+    overflow-y: scroll;
+    .MuiCard-root {
+      box-sizing: border-box;
     }
   }
 `;

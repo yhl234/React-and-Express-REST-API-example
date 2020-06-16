@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -16,7 +15,7 @@ const Footer = ({ className }) => (
         href="https://github.com/yhl234"
         title="yhl234"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
         <IconButton className="icons">
           <CodeIcon fontSize="large" />
@@ -26,7 +25,7 @@ const Footer = ({ className }) => (
         href="https://www.linkedin.com/in/louis-lee-a85159129"
         title="Louis Lee"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
         <IconButton className="icons">
           <LinkedInIcon fontSize="large" className="icons" />
@@ -37,7 +36,7 @@ const Footer = ({ className }) => (
         href="mailto:leejepn@gmail.com"
         title="leejepn@gmail.com"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
         <IconButton className="icons">
           <MailIcon fontSize="large" />
@@ -47,15 +46,27 @@ const Footer = ({ className }) => (
     <div className="credit">
       <small>
         © {new Date().getFullYear()},{' '}
-        <a href="https://yhl234.netlify.app/" target="_blank" rel="noreferrer">
+        <a
+          href="https://yhl234.netlify.app/"
+          target="_blank"
+          rel=" noopener noreferrer"
+        >
           Louis Lee
         </a>{' '}
         All Rights Reserved. Built with{' '}
-        <a href="https://www.gatsbyjs.org" target="_blank" rel="noreferrer">
+        <a
+          href="https://www.gatsbyjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           React
         </a>{' '}
         and{' '}
-        <a href="https://material-ui.com/" target="_blank" rel="noreferrer">
+        <a
+          href="https://material-ui.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           MATERIAL UI
         </a>
       </small>

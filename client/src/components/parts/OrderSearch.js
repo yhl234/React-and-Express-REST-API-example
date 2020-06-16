@@ -1,13 +1,14 @@
 /* eslint-disable react/destructuring-assignment */
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
 import React, { Component } from 'react';
+
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Button, Grid } from '@material-ui/core';
-import { api } from '../config/globals';
-import Order from '../components/Order';
+import { api } from '../../config/globals';
+import Order from './Order';
 
 export default class OrderSearch extends Component {
   state = {
-    phone: '',
     orders: null,
     notFound: null,
     notFoundText: null,
@@ -73,7 +74,7 @@ export default class OrderSearch extends Component {
               id="phone"
               validators={['required']}
               errorMessages={['Phone is required', 'Phone is not valid']}
-              helperText={notFoundText || null}
+              helperText={notFoundText || 'Enter phone number to search'}
               error={notFound || null}
             />
 
