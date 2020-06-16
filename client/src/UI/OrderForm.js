@@ -13,7 +13,6 @@ import { api } from '../config/globals';
 
 export default class OrderForm extends Component {
   static propTypes = {
-    className: PropTypes.string,
     postId: PropTypes.string,
     mode: PropTypes.string,
     onFinish: PropTypes.func,

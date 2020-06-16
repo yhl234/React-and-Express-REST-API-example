@@ -3,6 +3,7 @@
 import React, { Component, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import MaterialTable from 'material-table';
+import { Grid } from '@material-ui/core';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
@@ -80,35 +81,36 @@ class OrdersTable extends Component {
     const { onDelete, onEdit } = this.props;
 
     return (
-      <>
-        <MaterialTable
-          hover
-          title="Report"
-          icons={tableIcons}
-          columns={columns}
-          size="medium"
-          data={data}
-          actions={[
-            {
-              icon: () => <Edit color="primary" fontSize="small" />,
-              tooltip: 'Edit Record',
-              onClick: (event, rowData) => onEdit(rowData._id),
-            },
-            {
-              icon: () => <DeleteOutline color="primary" />,
-              tooltip: 'Delete Record',
-              onClick: (event, rowData) => {
-                confirm(`You want to delete ${rowData.name}`);
-                onDelete(rowData._id);
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid item sm={8}>
+          <MaterialTable
+            title="Report"
+            icons={tableIcons}
+            columns={columns}
+            size="medium"
+            data={data}
+            actions={[
+              {
+                icon: () => <Edit color="primary" fontSize="small" />,
+                tooltip: 'Edit Record',
+                onClick: (event, rowData) => onEdit(rowData._id),
               },
-            },
-          ]}
-          options={{
-            exportButton: true,
-            actionsColumnIndex: -1,
-          }}
-        />
-      </>
+              {
+                icon: () => <DeleteOutline color="primary" />,
+                tooltip: 'Delete Record',
+                onClick: (event, rowData) => {
+                  confirm(`You want to delete ${rowData.name}`);
+                  onDelete(rowData._id);
+                },
+              },
+            ]}
+            options={{
+              exportButton: true,
+              actionsColumnIndex: -1,
+            }}
+          />
+        </Grid>
+      </Grid>
     );
   }
 }
