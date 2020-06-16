@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -25,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Nav = ({ className }) => {
+const Nav = () => {
   const classes = useStyles();
   return (
     <AppBar position="static">
@@ -46,9 +45,6 @@ const Nav = ({ className }) => {
       </Toolbar>
     </AppBar>
   );
-};
-Nav.propTypes = {
-  className: PropTypes.string,
 };
 
 export default Nav;

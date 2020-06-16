@@ -12,7 +12,6 @@ const HomeTabs = ({ className }) => {
   const handleChange = event => {
     setValue(event.target.value);
   };
-
   return (
     <Card className={className} variant="outlined">
       <RadioGroup

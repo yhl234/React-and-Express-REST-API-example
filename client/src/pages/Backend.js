@@ -1,5 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
 import {
   Dialog,
   DialogContent,
@@ -12,13 +15,17 @@ import OrdersTable from '../components/OrdersTable';
 
 import OrderForm from '../UI/OrderForm';
 
-export default class Backend extends Component {
+class Backend extends Component {
   state = {
     orders: null,
     edit: false,
     creating: false,
     editing: null,
     open: false,
+  };
+
+  static propTypes = {
+    className: PropTypes.string,
   };
 
   componentDidMount() {
@@ -94,26 +101,37 @@ export default class Backend extends Component {
       );
     }
     const { open, orders } = this.state;
+    const { className } = this.props;
+
     return (
-      <div>
-        <Button color="primary" size="small" onClick={this.createHandler}>
-          <AddCircleIcon />
-        </Button>
-        <section>
-          {orders ? (
+      <section className={className}>
+        {orders ? (
+          <>
+            <Button color="primary" size="small" onClick={this.createHandler}>
+              <AddCircleIcon />
+            </Button>
             <OrdersTable
               data={orders}
               onDelete={this.deleteHandler}
               onEdit={this.editHandler}
             />
-          ) : (
-            <CircularProgress />
-          )}
-        </section>
+          </>
+        ) : (
+          <CircularProgress />
+        )}
         <Dialog open={open} onClose={this.handleClose} maxWidth="sm">
           <DialogContent>{inputFrom}</DialogContent>
         </Dialog>
-      </div>
+      </section>
     );
   }
 }
+export default styled(Backend)`
+  padding: 50px;
+  @media only screen and (max-width: 760px) {
+    padding: 20px;
+    .MTableToolbar-searchField-14 {
+      display: none;
+    }
+  }
+`;

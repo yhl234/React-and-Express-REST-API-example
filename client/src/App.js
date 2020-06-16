@@ -5,6 +5,7 @@ import Backend from './pages/Backend';
 import Home from './pages/Home';
 import Thanks from './pages/Thanks';
 import Nav from './components/Nav';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/thanks" component={Thanks} />
           <Route exact path="/" component={Home} />
         </Switch>
+        <Footer />
       </div>
     </BrowserRouter>
   );

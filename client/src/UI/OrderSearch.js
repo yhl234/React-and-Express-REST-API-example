@@ -1,16 +1,11 @@
 /* eslint-disable react/destructuring-assignment */
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import { Button, Grid } from '@material-ui/core';
 import { api } from '../config/globals';
 import Order from '../components/Order';
 
 export default class OrderSearch extends Component {
-  // static propTypes = {
-  // prop: PropTypes,
-  // };
-
   state = {
     phone: '',
     orders: null,

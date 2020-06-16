@@ -91,9 +91,18 @@ export default class OrderForm extends Component {
       .then(data => {
         this.setState({ submitted: true }, () => {
           setTimeout(() => {
-            this.setState({ submitted: false });
-            onFinish();
-          }, 500);
+            this.setState({
+              submitted: false,
+              name: '',
+              phone: '',
+              email: '',
+              time: new Date(),
+              numOfPeople: '',
+            });
+            if (onFinish) {
+              onFinish();
+            }
+          }, 2000);
         });
         this.sendEmail();
         loadPosts();
