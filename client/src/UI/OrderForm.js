@@ -89,6 +89,7 @@ export default class OrderForm extends Component {
         res.json();
       })
       .then(data => {
+        this.sendEmail();
         this.setState({ submitted: true }, () => {
           setTimeout(() => {
             this.setState({
@@ -99,13 +100,14 @@ export default class OrderForm extends Component {
               time: new Date(),
               numOfPeople: '',
             });
-            if (onFinish) {
-              onFinish();
-            }
           }, 2000);
         });
-        this.sendEmail();
-        loadPosts();
+        if (onFinish) {
+          onFinish();
+        }
+        if (loadPosts) {
+          loadPosts();
+        }
       })
       .catch(err => {
         console.log(err);

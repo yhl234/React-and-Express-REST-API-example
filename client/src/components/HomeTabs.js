@@ -12,6 +12,9 @@ const HomeTabs = ({ className }) => {
   const handleChange = event => {
     setValue(event.target.value);
   };
+  const onFinish = () => {
+    setValue('search');
+  };
   return (
     <Card className={className} variant="outlined">
       <RadioGroup
@@ -31,7 +34,11 @@ const HomeTabs = ({ className }) => {
           label="Search orders"
         />
       </RadioGroup>
-      {value === 'form' ? <OrderForm fullWidth /> : <OrderSearch />}
+      {value === 'form' ? (
+        <OrderForm fullWidth onFinish={onFinish} />
+      ) : (
+        <OrderSearch />
+      )}
     </Card>
   );
 };
