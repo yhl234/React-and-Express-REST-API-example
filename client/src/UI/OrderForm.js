@@ -175,17 +175,17 @@ export default class OrderForm extends Component {
   };
 
   render() {
-    const { className, mode, fullWidth } = this.props;
+    const { mode, fullWidth } = this.props;
     const { name, phone, email, time, numOfPeople, submitted } = this.state;
 
     return (
       <ValidatorForm
         onSubmit={mode === 'edit' ? this.handleUpdate : this.handleSubmit}
       >
-        <Grid container direction="row" justify="center" alignItems="center">
+        <Grid container direction="column" justify="center" alignItems="center">
           <TextValidator
             label="Name"
-            margin="normal"
+            // margin="normal"
             fullWidth={fullWidth || null}
             value={name}
             onChange={this.handleChange}
@@ -197,7 +197,7 @@ export default class OrderForm extends Component {
           />
           <TextValidator
             label="Phone Number"
-            margin="normal"
+            // margin="normal"
             fullWidth={fullWidth || null}
             value={phone}
             onChange={this.handleChange}
@@ -210,7 +210,7 @@ export default class OrderForm extends Component {
 
           <TextValidator
             label="Email"
-            margin="normal"
+            // margin="normal"
             fullWidth={fullWidth || null}
             value={email}
             onChange={this.handleChange}
@@ -223,7 +223,7 @@ export default class OrderForm extends Component {
 
           <TextValidator
             label="Guests"
-            margin="normal"
+            // margin="normal"
             fullWidth={fullWidth || null}
             value={numOfPeople}
             onChange={this.handleChange}
@@ -240,7 +240,7 @@ export default class OrderForm extends Component {
           />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
-              margin="normal"
+              // margin="normal"
               fullWidth={fullWidth || null}
               name="time"
               id="date-picker-dialog"
@@ -253,7 +253,7 @@ export default class OrderForm extends Component {
               }}
             />
             <KeyboardTimePicker
-              margin="normal"
+              // margin="normal"
               fullWidth={fullWidth || null}
               name="time"
               id="time-picker"

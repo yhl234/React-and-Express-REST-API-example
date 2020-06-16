@@ -63,7 +63,7 @@ export default class OrderSearch extends Component {
         <ValidatorForm onSubmit={this.handleSubmit}>
           <Grid
             container
-            direction="row"
+            direction="column"
             justify="center"
             alignItems="flex-end"
           >

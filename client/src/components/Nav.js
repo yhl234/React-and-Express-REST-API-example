@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -30,7 +31,7 @@ const Nav = ({ className }) => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          News
+          Travelnology <FlightTakeoffIcon />
         </Typography>
         <NavLink exact to="/" title="Home">
           <IconButton className={classes.menuButton}>

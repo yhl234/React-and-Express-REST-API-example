@@ -51,7 +51,7 @@ class OrdersTable extends Component {
       { title: 'Email', field: 'email' },
       { title: 'Phone', field: 'phone' },
       { title: 'Time', field: 'time' },
-      { title: 'Number of people', field: 'numOfPeople' },
+      { title: 'Guests', field: 'numOfPeople' },
     ],
     data: [],
   };
@@ -82,18 +82,20 @@ class OrdersTable extends Component {
     return (
       <>
         <MaterialTable
+          hover
           title="Report"
           icons={tableIcons}
           columns={columns}
+          size="medium"
           data={data}
           actions={[
             {
-              icon: () => <Edit />,
+              icon: () => <Edit color="primary" fontSize="small" />,
               tooltip: 'Edit Record',
               onClick: (event, rowData) => onEdit(rowData._id),
             },
             {
-              icon: () => <DeleteOutline />,
+              icon: () => <DeleteOutline color="primary" />,
               tooltip: 'Delete Record',
               onClick: (event, rowData) => {
                 confirm(`You want to delete ${rowData.name}`);

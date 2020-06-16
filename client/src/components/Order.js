@@ -6,7 +6,7 @@ import { Mail, Phone, CalendarToday } from '@material-ui/icons/';
 import Time from '../UI/Time';
 
 const Order = ({ order, className }) => {
-  const { _id, name, email, phone, time, numOfPeople } = order;
+  const { name, email, phone, time, numOfPeople } = order;
 
   let numOfPString = '';
   if (numOfPeople === 2) {
@@ -20,14 +20,14 @@ const Order = ({ order, className }) => {
     <Card className={className} variant="outlined">
       <CardContent>
         <h3>{name} </h3>
-        <span>{numOfPString}</span>
-        <div>
+        <span className="guests">{numOfPString}</span>
+        <div className="info">
           <Mail />: {email}
         </div>
-        <div>
+        <div className="info">
           <Phone />: {phone}
         </div>
-        <div>
+        <div className="info">
           <CalendarToday />: <Time time={time} />
         </div>
       </CardContent>
@@ -41,11 +41,22 @@ Order.propTypes = {
 
 export default styled(Order)`
   text-align: left;
-  border: 1px solid gray;
-  max-width: 300px;
-  padding: 1.5rem;
-  margin: 0.5rem;
+  margin-top: 0.5rem;
+  width: 100%;
+
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+  }
   h3 {
     display: inline-block;
+    margin-bottom: 10px;
+  }
+  .guests {
+    font-size: 10px;
+  }
+  .info {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
   }
 `;

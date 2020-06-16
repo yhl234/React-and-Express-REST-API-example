@@ -6,6 +6,7 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { api } from '../config/globals';
 import OrdersTable from '../components/OrdersTable';
 
@@ -96,7 +97,7 @@ export default class Backend extends Component {
     return (
       <div>
         <Button color="primary" size="small" onClick={this.createHandler}>
-          Create
+          <AddCircleIcon />
         </Button>
         <section>
           {orders ? (

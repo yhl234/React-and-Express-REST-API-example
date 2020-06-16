@@ -21,14 +21,18 @@ const HomeTabs = ({ className }) => {
         value={value}
         onChange={handleChange}
       >
-        <FormControlLabel value="form" control={<Radio />} label="New order" />
+        <FormControlLabel
+          value="form"
+          control={<Radio size="small" />}
+          label="New order"
+        />
         <FormControlLabel
           value="search"
-          control={<Radio />}
-          label="Search for your orders"
+          control={<Radio size="small" />}
+          label="Search orders"
         />
       </RadioGroup>
-      {value === 'form' ? <OrderForm /> : <OrderSearch />}
+      {value === 'form' ? <OrderForm fullWidth /> : <OrderSearch />}
     </Card>
   );
 };
@@ -36,7 +40,8 @@ HomeTabs.propTypes = {
   className: PropTypes.string,
 };
 export default styled(HomeTabs)`
-  padding: 10px;
+  padding: 20px;
+  min-height: 450px;
   .MuiFormGroup-root {
     flex-direction: row;
   }
